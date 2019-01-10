@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Idle Monitor" Language="1033" Version="1.0.0.0" Manufacturer="Patrick S. Seymour" UpgradeCode="BC0EEDD2-0169-4EED-9A72-47223BACE897">
+    <Package InstallerVersion="400" Compressed="yes" InstallScope="perMachine" />
+    <Condition Message="You must have administrator rights to install this software.">Privileged</Condition>
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="IdleMonitor" Title="[ProductName]" Level="1">
+      <ComponentRef Id="ADMXFiles" />
+      <ComponentRef Id="ADMLFiles" />
+      <ComponentRef Id="UserInterface" />
+      <Condition Level="0">INSTALLIDLEMONITOR = "0"</Condition>
+    </Feature>
+    
+    <Icon Id="HourGlass.ico" SourceFile="..\HourGlass.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="HourGlass.ico" />
+    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <!-- Create the structure in the appropriate Program Files folder. -->
+      <?if $(var.Platform) = x64 ?>
+        <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+      <?else ?>
+        <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+      <?endif ?>
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLFOLDER" Name="Idle Monitor">
+          <Component Id="UserInterface" Guid="CB89912D-4866-44B1-97CF-36A63E844252">
+            <File Id="UserInterfaceExe" Name="$(var.User Application.TargetFileName)" Source="$(var.User Application.TargetPath)" KeyPath="yes" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(var.User Application.TargetFileName)" Action="write" Value="[INSTALLFOLDER]$(var.User Application.TargetFileName)" Type="string" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(var.User Application.TargetFileName)" Action="write" Name="Path" Value="[INSTALLFOLDER]" Type="string" />
+            <!-- <Shortcut Id="LocalUserInferfaceShortcut" Directory="ProgramMenuFolder" Name="Idle Monitor" Description="Idle Monitor" Advertise="yes" WorkingDirectory="INSTALLDIR" Icon="SecurityLock.ico" IconIndex="0" /> -->
+          </Component>
+          <Directory Id="GroupPolicyFolder" Name="Group Policy">
+            <Component Id="ADMXFiles" Guid="1F7F804B-D7E6-4F1A-B0E6-C2253E4FBE97">
+               <File Id="IdleMonitor.admx" Source="GroupPolicy\IdleMonitor.admx" />
+            </Component>
+            <Directory Id="GroupPolicyEnUSFolder" Name="en-US">
+              <Component Id="ADMLFiles" Guid="2AE3D1D2-1B0C-4A37-BE69-CA6636E85550" KeyPath="yes">
+                <File Id="IdleMonitor.adml" Source="GroupPolicy\en-US\IdleMonitor.adml" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+      
+      <Directory Id="ProgramMenuFolder" Name="Programs" />
+    </Directory>
+  </Product>
+</Wix>

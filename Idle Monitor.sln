@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User Application", "User Application\User Application.csproj", "{E6205B6B-DE4F-45FE-BC5F-B355FC8915BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Service", "Windows Service\Windows Service.csproj", "{09C271B4-EEF4-460B-B382-0BB2A11BC2E3}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixproj", "{2238948F-E99E-468D-A5D7-4D0481355245}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6205B6B-DE4F-45FE-BC5F-B355FC8915BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6205B6B-DE4F-45FE-BC5F-B355FC8915BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6205B6B-DE4F-45FE-BC5F-B355FC8915BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6205B6B-DE4F-45FE-BC5F-B355FC8915BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C271B4-EEF4-460B-B382-0BB2A11BC2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C271B4-EEF4-460B-B382-0BB2A11BC2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C271B4-EEF4-460B-B382-0BB2A11BC2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C271B4-EEF4-460B-B382-0BB2A11BC2E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2238948F-E99E-468D-A5D7-4D0481355245}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2238948F-E99E-468D-A5D7-4D0481355245}.Debug|Any CPU.Build.0 = Debug|x86
+		{2238948F-E99E-468D-A5D7-4D0481355245}.Release|Any CPU.ActiveCfg = Release|x86
+		{2238948F-E99E-468D-A5D7-4D0481355245}.Release|Any CPU.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73760438-AE21-4E81-8E05-62603D9D538A}
+	EndGlobalSection
+EndGlobal

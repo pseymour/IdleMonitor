@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions"
+                           revision="1.0"
+                           schemaVersion="1.0">
+  <displayName>Idle Monitor application policy file</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="IdleMonitorDisplayName">Idle Monitor</string>
+      <string id="IdleMonitorExplainText">Idle Monitor logs off a Windows user when they have not used the keyboard or mouse for a specified period of time.</string>
+      <string id="IdleTimeoutDisplayName">Idle Timeout</string>
+      <string id="IdleTimeoutExplainText">This setting specifies the amount of time, in minutes, for which a user may be idle before being logged off.</string>
+      <string id="WarningMinutesDisplayName">Warning Minutes</string>
+      <string id="WarningMinutesExplainText">This setting specifies __________.</string>
+      <string id="WarningRepeatDisplayName">Warning Repeat</string>
+      <string id="WarningRepeatExplainText">This setting specifies _____________.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="Idle_Timeout_Spin">
+        <text>The number of minutes for which a user is allowed to be idle.</text>
+        <decimalTextBox refId="IdleTimeoutValue" defaultValue="60" spinStep="5">Idle Timeout:</decimalTextBox>
+      </presentation>
+      <presentation id="Warning_Minutes_Spin">
+        <text>______________________________________.</text>
+        <decimalTextBox refId="WarningMinutesValue" defaultValue="15" spinStep="5">Initial Warning:</decimalTextBox>
+      </presentation>
+      <presentation id="Warning_Repeat_Spin">
+        <text>______________________________________.</text>
+        <decimalTextBox refId="WarningRepeatValue" defaultValue="5" spinStep="1">Repeat Warning:</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

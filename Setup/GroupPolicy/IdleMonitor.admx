@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.microsoft.com/GroupPolicy/PolicyDefinitions"
+                   revision="1.0"
+                   schemaVersion="1.0">
+
+  <policyNamespaces>
+    <target prefix="idlemonitor" namespace="Policies.IdleMonitor" />
+    <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+  </policyNamespaces>
+
+  <resources minRequiredRevision="1.0" fallbackCulture="en-us" />
+
+  <categories>
+    <category name="IdleMonitor" displayName="$(string.IdleMonitorDisplayName)" explainText="$(string.IdleMonitorExplainText)" />
+  </categories>
+
+  <policies>
+
+    <policy name="IdleTimeout"
+             class="Machine"
+             displayName="$(string.IdleTimeoutDisplayName)"
+             explainText="$(string.IdleTimeoutExplainText)"
+             key="SOFTWARE\Policies\Idle Monitor"
+             valueName="Idle Timeout"
+             presentation="$(presentation.Idle_Timeout_Spin)" >
+      <parentCategory ref="idlemonitor:IdleMonitor"></parentCategory>
+      <supportedOn ref="windows:SUPPORTED_Windows7" />
+      <elements>
+        <decimal id="IdleTimeoutValue" required="true" valueName="Idle Timeout" minValue="1" maxValue="1440" storeAsText="false" />
+      </elements>
+    </policy>
+	
+    <policy name="WarningMinutes"
+             class="Machine"
+             displayName="$(string.WarningMinutesDisplayName)"
+             explainText="$(string.WarningMinutesExplainText)"
+             key="SOFTWARE\Policies\Idle Monitor"
+             valueName="Warning Minutes"
+             presentation="$(presentation.Warning_Minutes_Spin)" >
+      <parentCategory ref="idlemonitor:IdleMonitor"></parentCategory>
+      <supportedOn ref="windows:SUPPORTED_Windows7" />
+      <elements>
+        <decimal id="WarningMinutesValue" required="true" valueName="Warning Minutes" minValue="1" maxValue="600" storeAsText="false" />
+      </elements>
+    </policy>	
+
+	<policy name="WarningRepeat"
+             class="Machine"
+             displayName="$(string.WarningRepeatDisplayName)"
+             explainText="$(string.WarningRepeatExplainText)"
+             key="SOFTWARE\Policies\Idle Monitor"
+             valueName="Warning Repeat Minutes"
+             presentation="$(presentation.Warning_Repeat_Spin)" >
+      <parentCategory ref="idlemonitor:IdleMonitor"></parentCategory>
+      <supportedOn ref="windows:SUPPORTED_Windows7" />
+      <elements>
+        <decimal id="WarningRepeatValue" required="true" valueName="Warning Repeat Minutes" minValue="1" maxValue="600" storeAsText="false" />
+      </elements>
+    </policy>	
+
+  </policies>
+
+</policyDefinitions>
