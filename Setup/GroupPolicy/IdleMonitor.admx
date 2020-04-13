@@ -19,7 +19,7 @@
   <policies>
 
     <policy name="IdleTimeout"
-             class="Machine"
+             class="User"
              displayName="$(string.IdleTimeoutDisplayName)"
              explainText="$(string.IdleTimeoutExplainText)"
              key="SOFTWARE\Policies\Idle Monitor"
@@ -33,7 +33,7 @@
     </policy>
 	
     <policy name="WarningMinutes"
-             class="Machine"
+             class="User"
              displayName="$(string.WarningMinutesDisplayName)"
              explainText="$(string.WarningMinutesExplainText)"
              key="SOFTWARE\Policies\Idle Monitor"
@@ -47,7 +47,7 @@
     </policy>	
 
 	<policy name="WarningRepeat"
-             class="Machine"
+             class="User"
              displayName="$(string.WarningRepeatDisplayName)"
              explainText="$(string.WarningRepeatExplainText)"
              key="SOFTWARE\Policies\Idle Monitor"

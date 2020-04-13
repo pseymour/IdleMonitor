@@ -31,7 +31,6 @@
             <File Id="UserInterfaceExe" Name="$(var.User Application.TargetFileName)" Source="$(var.User Application.TargetPath)" KeyPath="yes" />
             <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(var.User Application.TargetFileName)" Action="write" Value="[INSTALLFOLDER]$(var.User Application.TargetFileName)" Type="string" />
             <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(var.User Application.TargetFileName)" Action="write" Name="Path" Value="[INSTALLFOLDER]" Type="string" />
-            <!-- <Shortcut Id="LocalUserInferfaceShortcut" Directory="ProgramMenuFolder" Name="Idle Monitor" Description="Idle Monitor" Advertise="yes" WorkingDirectory="INSTALLDIR" Icon="SecurityLock.ico" IconIndex="0" /> -->
           </Component>
           <Directory Id="GroupPolicyFolder" Name="Group Policy">
             <Component Id="ADMXFiles" Guid="1F7F804B-D7E6-4F1A-B0E6-C2253E4FBE97">
@@ -44,8 +43,7 @@
             </Directory>
           </Directory>
         </Directory>
-      </Directory>
-      
+      </Directory>      
       <Directory Id="ProgramMenuFolder" Name="Programs" />
     </Directory>
   </Product>

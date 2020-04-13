@@ -7,10 +7,6 @@
     /// </summary>
     public static class Settings
     {
-        private const int DefaultIdleTimeoutMinutes = 60;
-        private const int DefaultWarningMinutes = 15;
-        private const int DefaultWarningRepeatMinutes = 5;
-
         /// <summary>
         /// The top-level registry key in which the settings will be stored.
         /// </summary>
@@ -32,7 +28,11 @@
                 }
                 else
                 { // Neither the policy nor the preference registry entries had a value. Return a default value.
-                    return DefaultIdleTimeoutMinutes;
+#if DEBUG
+                    return 5;
+#else
+                    return 60;
+#endif
                 }
             }
             set
@@ -58,7 +58,11 @@
                 }
                 else
                 { // Neither the policy nor the preference registry entries had a value. Return a default value.
-                    return DefaultWarningMinutes;
+#if DEBUG
+                    return 3;
+#else
+                    return 15;
+#endif
                 }
             }
             set
@@ -83,7 +87,11 @@
                 }
                 else
                 { // Neither the policy nor the preference registry entries had a value. Return a default value.
-                    return DefaultWarningRepeatMinutes;
+#if DEBUG
+                    return 1;
+#else
+                    return 5;
+#endif
                 }
             }
             set

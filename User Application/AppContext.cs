@@ -8,23 +8,33 @@
     /// </summary>
     internal class AppContext : ApplicationContext
     {
+        /// <summary>
+        /// A timer that monitors keyboard and mouse input from the user.
+        /// </summary>
         private System.Timers.Timer inputUpdateTimer;
-        private NotifyIcon notificationIcon;
-        private DateTime lastBalloonTipShown = DateTime.MinValue;
-        /*
-        private bool idleNotificationDisplayed = false;
-        */
 
         /// <summary>
-        /// Initializes a new instance of the AppContext class.
+        /// The icon in the notification area (what some people call the system tray).
+        /// </summary>
+        private NotifyIcon notificationIcon;
+
+        /// <summary>
+        /// The date and time at which the last user notification was shown.
+        /// </summary>
+        private DateTime lastBalloonTipShown = DateTime.MinValue;
+
+        /// <summary>
+        /// Constructor.
         /// </summary>
         public AppContext()
         {
             this.lastBalloonTipShown = DateTime.MinValue;
 
-            this.notificationIcon = new NotifyIcon();
-            this.notificationIcon.Icon = UserIdleMonitor.Properties.Resources.hourglass;
-            this.notificationIcon.Text = "Idle Monitor";
+            this.notificationIcon = new NotifyIcon
+            {
+                Icon = UserIdleMonitor.Properties.Resources.hourglass,
+                Text = "Idle Monitor"
+            };
 
 #if DEBUG
             System.Text.StringBuilder iconText = new System.Text.StringBuilder("Idle Monitor");
@@ -38,12 +48,11 @@
 #endif
 
             this.notificationIcon.Visible = true;
-            /* this.notificationIcon.ContextMenu */
 
             this.ThreadExit += AppContext_ThreadExit;
 
             this.inputUpdateTimer = new System.Timers.Timer(10000);
-            this.inputUpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(inputUpdateTimer_Elapsed);
+            this.inputUpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(InputUpdateTimerElapsed);
 
             this.inputUpdateTimer.Start();
         }
@@ -64,11 +73,6 @@
             {
                 if (minutesUntilLogoff <= 0)
                 { // Log off the current user.
-                    /*
-                    #if DEBUG
-                    MessageBox.Show("This is where I'd log you off.", "Idle Monitor", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    #else
-                    */
                     this.lastBalloonTipShown = DateTime.Now;
                     this.notificationIcon.ShowBalloonTip(10000, "Idle Monitor", "You are about to be logged off, unless you move the mouse or press a key.", ToolTipIcon.Warning);
                     System.Threading.Thread.Sleep(10000);
@@ -76,13 +80,7 @@
                     if (minutesUntilLogoff <= 0)
                     {
                         NativeMethods.LogOff(false);
-                        /*
-                        this.ExitThread();
-                        */
                     }
-                    /*
-                    #endif
-                    */
                 }
                 else if (minutesUntilLogoff <= Settings.WarningMinutes)
                 { // We may need to display a warning.
@@ -92,12 +90,11 @@
                         this.lastBalloonTipShown = DateTime.Now;
                         this.notificationIcon.ShowBalloonTip(10000, "Idle Monitor", string.Format("You will be logged off in {0:N0} minute{1}, unless you move the mouse or press a key.", minutesUntilLogoff, (minutesUntilLogoff == 1) ? string.Empty : "s"), ToolTipIcon.Info);
                     }
-
                 }
             }
         }
 
-        void inputUpdateTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void InputUpdateTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             this.CheckIdleTimeAndLock();
         }
