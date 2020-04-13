@@ -30,13 +30,15 @@
         {
             this.lastBalloonTipShown = DateTime.MinValue;
 
-            this.notificationIcon = new NotifyIcon
+            notificationIcon = new NotifyIcon
             {
                 Icon = UserIdleMonitor.Properties.Resources.hourglass,
                 Text = "Idle Monitor"
             };
 
 #if DEBUG
+            // In debug mode, show the values for the various settings when the user hovers over
+            // the notification icon.
             System.Text.StringBuilder iconText = new System.Text.StringBuilder("Idle Monitor");
             iconText.Append(System.Environment.NewLine);
             iconText.Append(string.Format("Timeout: {0}", Settings.IdleTimeoutMinutes));
@@ -44,59 +46,82 @@
             iconText.Append(string.Format("Warning: {0}", Settings.WarningMinutes));
             iconText.Append(System.Environment.NewLine);
             iconText.Append(string.Format("Repeat: {0}", Settings.WarningRepeatMinutes));
-            this.notificationIcon.Text = iconText.ToString();
+            notificationIcon.Text = iconText.ToString();
 #endif
 
-            this.notificationIcon.Visible = true;
+            notificationIcon.Visible = true;
 
-            this.ThreadExit += AppContext_ThreadExit;
+            ThreadExit += AppContext_ThreadExit;
 
-            this.inputUpdateTimer = new System.Timers.Timer(10000);
-            this.inputUpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(InputUpdateTimerElapsed);
+            inputUpdateTimer = new System.Timers.Timer(10000);
+            inputUpdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(InputUpdateTimerElapsed);
 
-            this.inputUpdateTimer.Start();
+            inputUpdateTimer.Start();
         }
 
+
+        /// <summary>
+        /// Handles the ThreadExit event for the application context.
+        /// </summary>
+        /// <param name="sender">
+        /// The application context whose thread is closing.
+        /// </param>
+        /// <param name="e">
+        /// Data specific to the event.
+        /// </param>
         private void AppContext_ThreadExit(object sender, EventArgs e)
         {
-            this.notificationIcon.Visible = false;
-            this.notificationIcon.Dispose();
+            notificationIcon.Visible = false;
+            notificationIcon.Dispose();
 
-            this.inputUpdateTimer.Stop();
-            this.inputUpdateTimer = null;
+            inputUpdateTimer.Stop();
+            inputUpdateTimer = null;
         }
 
-        private void CheckIdleTimeAndLock()
+
+        /// <summary>
+        /// Checks how long the current user has been idle and takes the appropriate action, if any.
+        /// </summary>
+        private void CheckIdleTime()
         {
-            int minutesUntilLogoff = Settings.IdleTimeoutMinutes - (int)(NativeMethods.SecondsSinceLastInput / 60);
-            if (this.inputUpdateTimer.Enabled)
+            if (inputUpdateTimer.Enabled)
             {
+                int minutesUntilLogoff = Settings.IdleTimeoutMinutes - (int)(NativeMethods.SecondsSinceLastInput / 60);
                 if (minutesUntilLogoff <= 0)
-                { // Log off the current user.
-                    this.lastBalloonTipShown = DateTime.Now;
-                    this.notificationIcon.ShowBalloonTip(10000, "Idle Monitor", "You are about to be logged off, unless you move the mouse or press a key.", ToolTipIcon.Warning);
+                { // Log off the current user, unless they press a key or move the mouse in the next few seconds.
+                    lastBalloonTipShown = DateTime.Now;
+                    notificationIcon.ShowBalloonTip(10000, "Idle Monitor", "You are about to be logged off, unless you move the mouse or press a key.", ToolTipIcon.Warning);
                     System.Threading.Thread.Sleep(10000);
+                    
+                    // Check the last user input time again, in case the user generated activity while the thread was asleep.
                     minutesUntilLogoff = Settings.IdleTimeoutMinutes - (int)(NativeMethods.SecondsSinceLastInput / 60);
+
                     if (minutesUntilLogoff <= 0)
                     {
                         NativeMethods.LogOff(false);
                     }
                 }
-                else if (minutesUntilLogoff <= Settings.WarningMinutes)
-                { // We may need to display a warning.
-
-                    if (DateTime.Now.Subtract(lastBalloonTipShown).TotalMinutes > Settings.WarningRepeatMinutes)
-                    {
-                        this.lastBalloonTipShown = DateTime.Now;
-                        this.notificationIcon.ShowBalloonTip(10000, "Idle Monitor", string.Format("You will be logged off in {0:N0} minute{1}, unless you move the mouse or press a key.", minutesUntilLogoff, (minutesUntilLogoff == 1) ? string.Empty : "s"), ToolTipIcon.Info);
-                    }
+                else if ((minutesUntilLogoff <= Settings.WarningMinutes) && (DateTime.Now.Subtract(lastBalloonTipShown).TotalMinutes > Settings.WarningRepeatMinutes))
+                { // We need to display a warning.
+                    lastBalloonTipShown = DateTime.Now;
+                    notificationIcon.ShowBalloonTip(10000, "Idle Monitor", string.Format("You will be logged off in {0:N0} minute{1}, unless you move the mouse or press a key.", minutesUntilLogoff, (minutesUntilLogoff == 1) ? string.Empty : "s"), ToolTipIcon.Info);
                 }
             }
         }
 
+
+        /// <summary>
+        /// Handles the Elapsed event for the input update timer.
+        /// </summary>
+        /// <param name="sender">
+        /// The timer whose Elapsed event has fired.
+        /// </param>
+        /// <param name="e">
+        /// Data specific to the event.
+        /// </param>
         void InputUpdateTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.CheckIdleTimeAndLock();
+            CheckIdleTime();
         }
     }
 }

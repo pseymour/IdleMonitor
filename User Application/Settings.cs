@@ -12,6 +12,9 @@
         /// </summary>
         private static RegistryKey rootRegistryKey = Registry.CurrentUser;
 
+        /// <summary>
+        /// Gets or sets a value specifying a number of minutes, after which an idle user session will be logged off.
+        /// </summary>
         public static int IdleTimeoutMinutes
         {
             get
@@ -42,6 +45,9 @@
         }
 
 
+        /// <summary>
+        /// Gets or sets a value specifying a number of minutes, after which an idle user is warned that they will be logged off.
+        /// </summary>
         public static int WarningMinutes
         {
             get
@@ -71,6 +77,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value specifying a number of minutes, after which a log off warning message is repeatedly displayed to the user.
+        /// </summary>
         public static int WarningRepeatMinutes
         {
             get
@@ -164,6 +173,20 @@
             }
         }
 
+        /// <summary>
+        /// Retrieves an integer value from the registry.
+        /// </summary>
+        /// <param name="keyPath">
+        /// The path of the registry key in which the value is stored.
+        /// </param>
+        /// <param name="subkeyName">
+        /// The optional path of a subkey within the specified key.
+        /// </param>
+        /// <param name="valueName">
+        /// The name of the registry value in which the integer is be stored.
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static int? GetDWord(string keyPath, string subkeyName, string valueName)
         {
             int? returnValue = null;
@@ -189,14 +212,23 @@
         }
 
         /// <summary>
-        /// Stores a string in the registry.
+        /// Stores an integer in the registry.
         /// </summary>
+        /// <param name="keyPath">
+        /// The path of the registry key in which the value is stored.
+        /// </param>
+        /// <param name="subkeyName">
+        /// The optional path of a subkey within the specified key.
+        /// </param>
         /// <param name="valueName">
-        /// The name of the registry value in which the string will be stored.
+        /// The name of the registry value in which the integer will be stored.
         /// </param>
         /// <param name="value">
-        /// The string to stored in the registry.
+        /// The integer to stored in the registry.
         /// </param>
+        /// <remarks>
+        /// The integer value is stored in the registry as a DWORD.
+        /// </remarks>
         private static void SetDWord(string keyPath, string subkeyName, string valueName, int? value)
         {
             if (!string.IsNullOrEmpty(subkeyName))
