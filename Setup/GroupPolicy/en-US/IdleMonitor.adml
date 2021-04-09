@@ -12,10 +12,10 @@
       <string id="IdleMonitorExplainText">Idle Monitor logs off a Windows user when they have not used the keyboard or mouse for a specified period of time.</string>
       <string id="IdleTimeoutDisplayName">Idle Timeout</string>
       <string id="IdleTimeoutExplainText">This setting specifies the amount of time, in minutes, for which a user may be idle before being logged off.</string>
-      <string id="WarningMinutesDisplayName">Warning Minutes</string>
-      <string id="WarningMinutesExplainText">This setting specifies __________.</string>
+      <string id="WarningMinutesDisplayName">Initial Warning Minutes</string>
+      <string id="WarningMinutesExplainText">This setting specifies the number of minutes, after becoming idle, at which the first warning to the user is displayed.</string>
       <string id="WarningRepeatDisplayName">Warning Repeat</string>
-      <string id="WarningRepeatExplainText">This setting specifies _____________.</string>
+      <string id="WarningRepeatExplainText">This setting specifies the number of minutes at which the logoff warning is displayed to the user, until the idle timeout is reached.</string>
     </stringTable>
     <presentationTable>
       <presentation id="Idle_Timeout_Spin">
@@ -23,11 +23,11 @@
         <decimalTextBox refId="IdleTimeoutValue" defaultValue="60" spinStep="5">Idle Timeout:</decimalTextBox>
       </presentation>
       <presentation id="Warning_Minutes_Spin">
-        <text>______________________________________.</text>
+        <text>The number of minutes, after becoming idle, at which the first warning to the user is displayed.</text>
         <decimalTextBox refId="WarningMinutesValue" defaultValue="15" spinStep="5">Initial Warning:</decimalTextBox>
       </presentation>
       <presentation id="Warning_Repeat_Spin">
-        <text>______________________________________.</text>
+        <text>The number of minutes at which the logoff warning is displayed to the user, until the idle timeout is reached.</text>
         <decimalTextBox refId="WarningRepeatValue" defaultValue="5" spinStep="1">Repeat Warning:</decimalTextBox>
       </presentation>
     </presentationTable>

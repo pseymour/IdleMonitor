@@ -52,8 +52,8 @@
         {
             get
             {
-                int? policyTimeoutSetting = GetDWord(PolicyRegistryKeyPath, null, "Warning Minutes");
-                int? preferenceTimeoutSetting = GetDWord(PreferenceRegistryKeyPath, null, "Warning Minutes");
+                int? policyTimeoutSetting = GetDWord(PolicyRegistryKeyPath, null, "Initial Warning Minutes");
+                int? preferenceTimeoutSetting = GetDWord(PreferenceRegistryKeyPath, null, "Initial Warning Minutes");
                 if (policyTimeoutSetting.HasValue)
                 { // The policy setting has a value. Go with whatever it says.
                     return policyTimeoutSetting.Value;
@@ -73,7 +73,7 @@
             }
             set
             {
-                SetDWord(PreferenceRegistryKeyPath, null, "Warning Minutes", value);
+                SetDWord(PreferenceRegistryKeyPath, null, "Initial Warning Minutes", value);
             }
         }
 

@@ -37,12 +37,12 @@
              displayName="$(string.WarningMinutesDisplayName)"
              explainText="$(string.WarningMinutesExplainText)"
              key="SOFTWARE\Policies\Idle Monitor"
-             valueName="Warning Minutes"
+             valueName="Initial Warning Minutes"
              presentation="$(presentation.Warning_Minutes_Spin)" >
       <parentCategory ref="idlemonitor:IdleMonitor"></parentCategory>
       <supportedOn ref="windows:SUPPORTED_Windows7" />
       <elements>
-        <decimal id="WarningMinutesValue" required="true" valueName="Warning Minutes" minValue="1" maxValue="600" storeAsText="false" />
+        <decimal id="WarningMinutesValue" required="true" valueName="Initial Warning Minutes" minValue="1" maxValue="600" storeAsText="false" />
       </elements>
     </policy>	
 
