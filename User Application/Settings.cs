@@ -114,12 +114,12 @@
         /// </summary>
         private static string PreferenceRegistryKeyPath
         {
-            get { return string.Format(System.Globalization.CultureInfo.InvariantCulture, @"Software\{0}\{1}", CompanyName, ProductName); }
+            get { return string.Format(System.Globalization.CultureInfo.InvariantCulture, @"Software\{0}", ProductName); }
         }
 
         private static string PolicyRegistryKeyPath
         {
-            get { return string.Format(System.Globalization.CultureInfo.InvariantCulture, @"Software\Policies\{0}\{1}", CompanyName, ProductName); }
+            get { return string.Format(System.Globalization.CultureInfo.InvariantCulture, @"Software\Policies\{0}", ProductName); }
         }
 
 

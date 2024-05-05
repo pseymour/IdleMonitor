@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="Idle Monitor" Language="1033" Version="1.0.0.0" Manufacturer="Patrick S. Seymour" UpgradeCode="BC0EEDD2-0169-4EED-9A72-47223BACE897">
+  <Product Id="*" Name="Idle Monitor" Language="1033" Version="1.1.0.0" Manufacturer="Patrick S. Seymour" UpgradeCode="BC0EEDD2-0169-4EED-9A72-47223BACE897">
     <Package InstallerVersion="400" Compressed="yes" InstallScope="perMachine" />
     <Condition Message="You must have administrator rights to install this software.">Privileged</Condition>
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
